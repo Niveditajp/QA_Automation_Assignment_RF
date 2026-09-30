@@ -1,150 +1,156 @@
 QA Automation Assignment
 
-Overview
-
-This repository contains an end-to-end QA Automation Assignment built using Playwright and TypeScript.
-
-The framework is designed to demonstrate practical automation skills including:
-
-UI automation
-API testing
-Page Object Model (POM)
-Reusable test fixtures
-Test data management
-Assertions and validations
-HTML test reporting
-Continuous Integration with GitHub Actions
-
-The project follows a structured and maintainable automation approach rather than relying on single, standalone test scripts.
+A structured end-to-end test automation framework built with Playwright and TypeScript, covering both UI and API testing.
+The project is organized using reusable components and follows a maintainable automation structure with dedicated page objects, fixtures, configuration, and test suites.
 
 Tech Stack
-Technology	Purpose
-Playwright	Browser automation & API testing
-TypeScript	Test development
-Node.js	Runtime environment
-Git & GitHub	Version control
-GitHub Actions	CI automation
-Playwright HTML Report	Test execution reporting
+Technology	             Usage
+Playwright	             UI and API test automation
+TypeScript	             Test implementation
+Node.js / npm	         Project runtime and dependency management
+dotenv	                 Environment configuration
+Git & GitHub	         Source control
+GitHub Actions	         Continuous Integration
+Playwright HTML Report	 Test execution reporting
 
 Project Structure
 QA_Automation_Assignment_RF/
 │
+├── .github/
+│   └── workflows/          # CI workflow configuration
+│
+├── config/                 # Project configuration
+│
+├── pages/                  # Page Object Model classes
+│
 ├── tests/
-│   ├── ui/
-│   └── api/
+│   ├── api/
+│   │   └── user.spec.ts    # API test scenarios
+│   │
+│   ├── fixtures/           # Reusable Playwright fixtures
+│   │
+│   └── ui/
+│       ├── cart.spec.ts
+│       ├── checkout.spec.ts
+│       ├── login.spec.ts
+│       └── sort.spec.ts
 │
-├── pages/
-│
-├── fixtures/
-│
-├── test-data/
-│
-├── playwright.config.ts
+├── .env                    # Environment variables
+├── .gitignore
 ├── package.json
+├── package-lock.json
+├── playwright.config.ts
 ├── tsconfig.json
-├── README.md
-└── .github/
-    └── workflows/
+└── README.md
 
-
-Testing Coverage
+Test Coverage
 UI Automation
+The UI test suite is organized into independent test specifications covering key application workflows:
+Login — authentication and login scenarios
+Cart — shopping cart functionality
+Checkout — checkout workflow
+Sorting — product sorting functionality
 
-The UI automation covers functional scenarios through browser-based testing using Playwright.
+API Automation
+The API test suite contains scenarios for user-related API functionality.
+tests/api/user.spec.ts
+UI and API tests can be executed independently, making it easier to isolate failures and troubleshoot issues.
 
-Key areas include:
-Page navigation
-User interactions
-Form handling
-Element validation
-Assertions
-End-to-end workflows
-API Testing
+Framework Design
+The framework follows a structured automation approach using:
 
-API tests validate backend behaviour independently of the UI.
+Page Object Model
 
-The API layer includes validation of:
-HTTP responses
-Status codes
-Response data
-API behaviour
-Request/response handling
+Page-specific interactions are separated from test specifications through the pages/ directory.
 
-Automation Framework Design
+This helps provide:
 
-The framework follows the Page Object Model (POM) approach.
-
-This separates:
-
-Test Logic → Page Actions → Application UI
-
-Benefits include:
-Better maintainability
 Reusable page actions
-Reduced duplication
-Cleaner test cases
-Easier updates when the application changes
+Cleaner test specifications
+Reduced code duplication
+Easier maintenance
+Reusable Fixtures
 
-Reusable fixtures and test utilities are used wherever appropriate to keep the framework scalable.
+Common test setup and reusable functionality are maintained under:
 
-▶Getting Started
-1. Clone the repository
+tests/fixtures/
+Centralized Configuration
+
+Playwright configuration is maintained in:
+
+playwright.config.ts
+
+Environment-specific values can be managed through:
+
+.env
+
+Installation
+Prerequisites
+
+Make sure the following are installed:
+Node.js
+npm
+Git
+Clone the repository
 git clone https://github.com/Niveditajp/QA_Automation_Assignment_RF.git
-2. Navigate to the project
+Navigate to the project
 cd QA_Automation_Assignment_RF
-3. Install dependencies
+Install dependencies
 npm install
-4. Install Playwright browsers
+Install Playwright browsers
 npx playwright install
 
 Running Tests
 Run all tests
-npx playwright test
-Run tests with the browser visible
-npx playwright test --headed
-Run a specific test file
-npx playwright test <test-file>
-Run tests in debug mode
-npx playwright test --debug
+npm test
+Run UI tests
+npm run test:ui
+Run API tests
+npm run test:api
+Run tests in headed mode
+npm run test:headed
+
 
 Test Reports
 
-After execution, Playwright generates an HTML test report.
+After test execution, Playwright generates an HTML report.
 
-To open the report:
+Open the report using:
 
-npx playwright show-report
+npm run report
 
-The report provides information such as:
-Passed tests
-Failed tests
-Execution duration
-Test steps
-Screenshots
-Traces
+The Playwright report provides detailed information about test execution and helps with failure analysis.
 
 Continuous Integration
 
-The project is configured to support automated test execution through GitHub Actions.
+The repository includes GitHub Actions configuration under:
 
-This allows the test suite to be executed automatically in a CI environment and provides visibility into test results.
+.github/workflows/
 
-QA Automation Practices Demonstrated
+This allows the automation suite to be integrated into a CI pipeline so that tests can be executed automatically in a controlled environment.
 
-This assignment demonstrates practical knowledge of:
 
-End-to-end test automation
-API testing
-TypeScript
+Available npm Scripts
+Command	              Description
+npm test	          Run the complete Playwright test suite
+npm run test:ui	      Run UI tests
+npm run test:api	  Run API tests
+npm run test:headed	  Run tests with the browser visible
+npm run report	      Open the Playwright HTML report
+
+
+Key Automation Practices
+
+This project demonstrates practical implementation of:
+
+End-to-end UI automation
+API automation
 Playwright
+TypeScript
 Page Object Model
-Test organization
 Reusable fixtures
-Assertions
-Test reporting
-Git version control
-CI/CD concepts
-
-Project Status
-
-This repository is part of a QA Automation assignment and is actively maintained as part of the project development process.
+Test suite organization
+Environment configuration
+Automated test reporting
+Git-based version control
+CI integration with GitHub Actions
