@@ -1,0 +1,15 @@
+{
+  "ui": {
+    "baseURL": "https://www.saucedemo.com",
+    "lockedOutError": "Epic sadface: Sorry, this user has been locked out.",
+    "products": ["Sauce Labs Backpack", "Sauce Labs Bike Light"],
+    "checkout": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "postalCode": "12345"
+    }
+  },
+  "api": {
+    "baseURL": "https://reqres.in/api"
+  }
+}
