@@ -1,156 +1,65 @@
-QA Automation Assignment
+# QA Assignment — Playwright + TypeScript
 
-A structured end-to-end test automation framework built with Playwright and TypeScript, covering both UI and API testing.
-The project is organized using reusable components and follows a maintainable automation structure with dedicated page objects, fixtures, configuration, and test suites.
+UI tests against [SauceDemo](https://www.saucedemo.com) and API tests against
+[ReqRes](https://reqres.in), using Playwright’s `request` fixture (no browser)
+for Part 2.
 
-Tech Stack
-Technology	             Usage
-Playwright	             UI and API test automation
-TypeScript	             Test implementation
-Node.js / npm	         Project runtime and dependency management
-dotenv	                 Environment configuration
-Git & GitHub	         Source control
-GitHub Actions	         Continuous Integration
-Playwright HTML Report	 Test execution reporting
+## Install
 
-Project Structure
-QA_Automation_Assignment_RF/
-│
-├── .github/
-│   └── workflows/          # CI workflow configuration
-│
-├── config/                 # Project configuration
-│
-├── pages/                  # Page Object Model classes
-│
-├── tests/
-│   ├── api/
-│   │   └── user.spec.ts    # API test scenarios
-│   │
-│   ├── fixtures/           # Reusable Playwright fixtures
-│   │
-│   └── ui/
-│       ├── cart.spec.ts
-│       ├── checkout.spec.ts
-│       ├── login.spec.ts
-│       └── sort.spec.ts
-│
-├── .env                    # Environment variables
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── playwright.config.ts
-├── tsconfig.json
-└── README.md
-
-Test Coverage
-UI Automation
-The UI test suite is organized into independent test specifications covering key application workflows:
-Login — authentication and login scenarios
-Cart — shopping cart functionality
-Checkout — checkout workflow
-Sorting — product sorting functionality
-
-API Automation
-The API test suite contains scenarios for user-related API functionality.
-tests/api/user.spec.ts
-UI and API tests can be executed independently, making it easier to isolate failures and troubleshoot issues.
-
-Framework Design
-The framework follows a structured automation approach using:
-
-Page Object Model
-
-Page-specific interactions are separated from test specifications through the pages/ directory.
-
-This helps provide:
-
-Reusable page actions
-Cleaner test specifications
-Reduced code duplication
-Easier maintenance
-Reusable Fixtures
-
-Common test setup and reusable functionality are maintained under:
-
-tests/fixtures/
-Centralized Configuration
-
-Playwright configuration is maintained in:
-
-playwright.config.ts
-
-Environment-specific values can be managed through:
-
-.env
-
-Installation
-Prerequisites
-
-Make sure the following are installed:
-Node.js
-npm
-Git
-Clone the repository
-git clone https://github.com/Niveditajp/QA_Automation_Assignment_RF.git
-Navigate to the project
-cd QA_Automation_Assignment_RF
-Install dependencies
+```bash
 npm install
-Install Playwright browsers
-npx playwright install
+npx playwright install --with-deps chromium
+```
 
-Running Tests
-Run all tests
-npm test
-Run UI tests
-npm run test:ui
-Run API tests
-npm run test:api
-Run tests in headed mode
-npm run test:headed
+## Run
 
+Copy `.env.example` to `.env` and add your ReqRes API key (required for Part 2):
 
-Test Reports
+```bash
+cp .env.example .env
+```
 
-After test execution, Playwright generates an HTML report.
+```bash
+npx playwright test              # all tests
+npx playwright test tests/ui     # Part 1 — SauceDemo
+npx playwright test tests/api    # Part 2 — ReqRes
+npx playwright test --headed     # watch the browser
+npx playwright show-report       # HTML report after a run
+```
 
-Open the report using:
+ReqRes requires an `x-api-key` header. The key is read from `.env`
+(`REQRES_API_KEY`) and is never committed. SauceDemo credentials are also read
+from `.env`; base URLs, expected messages, and other non-secret test data live
+in `config/dev.json`.
 
-npm run report
+## Scenario coverage
 
-The Playwright report provides detailed information about test execution and helps with failure analysis.
+| # | Scenario | Spec |
+|---|----------|------|
+| 1 | Standard user lands on the products page | `tests/ui/login.spec.ts` |
+| 2 | Locked-out user sees the error and is not logged in | `tests/ui/login.spec.ts` |
+| 3 | Add two products; cart badge is `2` | `tests/ui/cart.spec.ts` |
+| 4 | Full checkout; “Thank you for your order!” | `tests/ui/checkout.spec.ts` |
+| 5 | Sort Price (low to high); first item is cheapest | `tests/ui/sort.spec.ts` |
+| 6 | GET `/api/users?page=2` | `tests/api/users.spec.ts` |
+| 7 | POST `/api/users` | `tests/api/users.spec.ts` |
+| 8 | Bonus create-then-verify structure | `tests/api/users.spec.ts` |
 
-Continuous Integration
+## Structure
 
-The repository includes GitHub Actions configuration under:
+```
+.env                          # secrets (gitignored) — API key and credentials
+.env.example                  # placeholder for local setup
+config/dev.json               # base URLs and non-secret test data
+config/index.ts               # merges dev.json + .env
+pages/                        # Page objects (locators + actions)
+  LoginPage.ts
+  ProductsPage.ts
+  CheckoutPage.ts
+tests/
+  fixtures/saucedemo.ts       # page objects + logged-in fixture
+  ui/                         # Part 1
+  api/                        # Part 2 — request fixture only
+playwright.config.ts          # separate `ui` and `api` projects
+```
 
-.github/workflows/
-
-This allows the automation suite to be integrated into a CI pipeline so that tests can be executed automatically in a controlled environment.
-
-
-Available npm Scripts
-Command	              Description
-npm test	          Run the complete Playwright test suite
-npm run test:ui	      Run UI tests
-npm run test:api	  Run API tests
-npm run test:headed	  Run tests with the browser visible
-npm run report	      Open the Playwright HTML report
-
-
-Key Automation Practices
-
-This project demonstrates practical implementation of:
-
-End-to-end UI automation
-API automation
-Playwright
-TypeScript
-Page Object Model
-Reusable fixtures
-Test suite organization
-Environment configuration
-Automated test reporting
-Git-based version control
-CI integration with GitHub Actions
