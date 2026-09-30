@@ -1,8 +1,8 @@
 # QA Assignment — Playwright + TypeScript
 
-UI tests against [SauceDemo](https://www.saucedemo.com) and API tests against
-[ReqRes](https://reqres.in), using Playwright’s `request` fixture (no browser)
-for Part 2.
+A structured end-to-end test automation framework built with Playwright and TypeScript, covering both UI and API testing.
+
+The project is organized using reusable components and follows a maintainable automation structure with dedicated page objects, fixtures, configuration, and test suites.
 
 ## Install
 
@@ -63,3 +63,6 @@ tests/
 playwright.config.ts          # separate `ui` and `api` projects
 ```
 
+## Project Status
+
+QA automation assignment demonstrating a structured Playwright test automation framework with UI and API coverage.
