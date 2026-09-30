@@ -11,13 +11,6 @@ npm install
 npx playwright install --with-deps chromium
 ```
 
-## Run
-
-Copy `.env.example` to `.env` and add your ReqRes API key (required for Part 2):
-
-```bash
-cp .env.example .env
-```
 
 ```bash
 npx playwright test              # all tests
@@ -49,7 +42,6 @@ in `config/dev.json`.
 
 ```
 .env                          # secrets (gitignored) — API key and credentials
-.env.example                  # placeholder for local setup
 config/dev.json               # base URLs and non-secret test data
 config/index.ts               # merges dev.json + .env
 pages/                        # Page objects (locators + actions)
